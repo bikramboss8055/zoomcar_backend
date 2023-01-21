@@ -104,9 +104,9 @@ const { CarModel } = require("../model/Car.model");
 
 // // Get by Id
 
-carRouter.get("/:id", async (req, res) => {
+carRouter.get("/getcar/:id", async (req, res) => {
   let ID = req.params.id;
-
+  
   try {
     const car = await CarModel.findById({ _id: ID });
     res.send(car);
