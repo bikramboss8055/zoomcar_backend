@@ -38,20 +38,7 @@
 //   }
 // });
 
-// // Get by Id
 
-// carRouter.get("/:id", async (req, res) => {
-//   let ID = req.params.id;
-
-//   try {
-//     const car = await CarModel.findById({ _id: ID });
-//     res.send(car);
-//   } catch (err) {
-//     console.log(err);
-//     res.send({ Error: "Error Coming While GET BY ID Request" });
-//     res.status(404).send(err.message);
-//   }
-// });
 
 // // Post Data
 
@@ -113,6 +100,22 @@ const { body, validationResult } = require("express-validator");
 const { VarifyToken } = require("../middleware/VarifyToken");
 const { AuthModel } = require("../model/Auth.model");
 const { CarModel } = require("../model/Car.model");
+
+
+// // Get by Id
+
+carRouter.get("/:id", async (req, res) => {
+  let ID = req.params.id;
+
+  try {
+    const car = await CarModel.findById({ _id: ID });
+    res.send(car);
+  } catch (err) {
+    res.status(500).send({ msg: "Somthing Went Wrong In Car add", err });
+  }
+});
+
+
 
 // Add to the product into the database (Only admin can add Product)
 carRouter.post(
