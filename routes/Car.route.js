@@ -38,8 +38,6 @@
 //   }
 // });
 
-
-
 // // Post Data
 
 // carRouter.post("/create", async (req, res) => {
@@ -101,21 +99,18 @@ const { VarifyToken } = require("../middleware/VarifyToken");
 const { AuthModel } = require("../model/Auth.model");
 const { CarModel } = require("../model/Car.model");
 
-
 // // Get by Id
 
 carRouter.get("/getcar/:id", async (req, res) => {
   let ID = req.params.id;
-  
+
   try {
     const car = await CarModel.findById({ _id: ID });
     res.send(car);
   } catch (err) {
-    res.status(500).send({ msg: "Somthing Went Wrong In Car add", err });
+    res.status(500).send({ msg: "Somthing Went Wrong In getting Car ", err });
   }
 });
-
-
 
 // Add to the product into the database (Only admin can add Product)
 carRouter.post(
@@ -199,6 +194,8 @@ carRouter.get("/allcars", async (req, res) => {
       seat,
       transmission,
       fueltype,
+      location,
+      cartype,
     } = req.query;
 
     let limit = 10;
@@ -227,6 +224,12 @@ carRouter.get("/allcars", async (req, res) => {
     }
     if (fueltype) {
       sortKm.fueltype = fueltype;
+    }
+    if (location) {
+      sortKm.location = location;
+    }
+    if (cartype) {
+      sortKm.cartype = cartype;
     }
 
     let allcars = await CarModel.find(sortKm)
