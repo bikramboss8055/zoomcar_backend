@@ -229,7 +229,7 @@ carRouter.get("/allcars", async (req, res) => {
       sortKm.location = location;
     }
     if (cartype) {
-      sortKm.cartype = cartype;
+      sortKm.cartype = cartype.toUpperCase();
     }
 
     let allcars = await CarModel.find(sortKm)
